@@ -67,10 +67,11 @@ class HashTable:
         # 5381 is a prime number and works well with djb2
         hash = 5381
         # encode each char in the key
+        sum = 0
         for char in key:
             # Multiply the hash by 33
-            # Add all encodes to the hash
-            hash = (hash * 33) + encode(char)
+            # Add all bytes to the hash
+            hash = (hash * 33) + ord(char)
         # Return the hash
         return hash
 
@@ -102,7 +103,10 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        pass
+        if self._table[self.hash_index(key)] is None:
+            return None
+
+        del self._table[self.hash_index(key)]
 
     def get(self, key):
         """
@@ -113,7 +117,10 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        pass
+        if self._table[self.hash_index(key)] is None:
+            return None
+
+        return self._table[self.hash_index(key)]
 
     def resize(self, new_capacity):
         """
